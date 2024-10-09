@@ -12,7 +12,7 @@ def find_duplicate_jpg_files(folder_path):
         print(dirs)
         print(files)
         for file in files:
-            if file.endswith('.png'):
+            if 1 or file.endswith('.png'):
                 print(file)
                 print(dirs)
                 print(files)
