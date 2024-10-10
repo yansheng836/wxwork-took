@@ -10,7 +10,7 @@ import os
 # directory = r'D:\WXWork\1688850205828112\Cache\Image\2024-02'
 # F:\Program Files (x86)\Tencent\WeChat\WeChat Files\wxid_pj5d1j5jff0021\FileStorage\File\2024-10
 # D:\WXWork\1688850205828112\Cache\Image\2023-11
-directory = r'D:\WXWork\1688850205828112\Cache\Image\2023-11'
+directory = r'D:\WXWork\1688850205828112\Cache\Image\2023-10'
 
 # 用于存储找到的jpg文件名
 jpg_files = {}
@@ -34,3 +34,5 @@ for filename in os.listdir(directory):
             if os.path.getsize(full_path) >= os.path.getsize(jpg_path):
                 # print(f'JPG比较小')
                 os.remove(jpg_path)  # 删除JPG文件
+            else:
+                print(f'JPG比较大')
