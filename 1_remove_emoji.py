@@ -29,6 +29,11 @@ for filename in os.listdir(directory):
         if os.path.getsize(full_path) < 15000:
             os.remove(full_path)
             print(f'删除小于15KB的图片：{full_path} 成功')
-        if 'charset' in filename or '.WeDrive' in filename:
+        if '.WeDrive' in filename:
             os.remove(full_path)
             print(f'删除特殊文件：{full_path} 成功')
+        sign = '; charset=UTF-8'
+        if sign in filename:
+            new_path = full_path.replace(sign, '')
+            os.rename(full_path, new_path)
+            print(f'重命名特殊文件：{full_path} to {new_path} 成功')
