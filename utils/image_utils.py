@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import hashlib
 import os
 import re
@@ -57,7 +58,7 @@ def remove_duplicate_has_brackets(directory):
                 # base_name = match.group(1) + '.jpg'  # 获取不带括号的文件名
                 base_name = match.group(1) + suffix  # 获取不带括号的文件名
                 base_path = os.path.join(directory, base_name)
-                if os.path.exists(base_path):
+                if os.path.exists(full_path) and os.path.exists(base_path):
                     print(f'找到带括号的 JPG 文件: {filename}')
                     print(f'存在无括号的 JPG 文件: {base_name}')
                     # print(os.path.getsize(full_path))
@@ -117,6 +118,11 @@ def remove_duplicate_content_pic(directory):
 
     # 遍历目录下的所有文件
     file_list = os.listdir(directory)
+    # 移除目录，目录不能进行hash计算
+    for fname in file_list:
+        n_fn = os.path.join(directory, fname)
+        if os.path.isdir(n_fn):
+            file_list.remove(fname)
 
     # 用简单的for循环，方便控制
     file_hashs = []
@@ -149,6 +155,13 @@ def remove_duplicate_content_pic(directory):
 
             if file_hash == file_hash2:
                 print(f'{filename} 和 {filename2} 相同')
+
+                # 因为后面会删除文件，需要保证两个文件都不为空，不然查看和处理文件会报错
+                if os.path.exists(full_path) is False:
+                    break
+                if os.path.exists(full_path2) is False:
+                    continue
+
                 # 比较两个文件的创建时间
                 # print(os.path.getctime(full_path))
                 # print(os.path.getctime(full_path2))
@@ -188,7 +201,7 @@ if __name__ == '__main__':
     if os.path.isdir(parent_directory):
         # print(f'存在目录：{full_path}')
         sub_dirs = os.listdir(parent_directory)
-        print(type(sub_dirs))
+        # print(type(sub_dirs))
         if len(sub_dirs) > 0:
             for sub_dir in sub_dirs:
                 # print(f'打印目录内容： {sub_dir} ')
@@ -196,10 +209,10 @@ if __name__ == '__main__':
                 if os.path.isdir(full_path):
                     print(f'打印目录中的目录： {full_path}')
                     # 调用逻辑删除文件
-                    remove_emoji(full_path)
-                    remove_duplicate_has_brackets(full_path)
+                    # remove_emoji(full_path)
+                    # remove_duplicate_has_brackets(full_path)
                     # remove_duplicate_name_jpg(full_path)
-                    # remove_duplicate_content_pic(full_path)
+                    remove_duplicate_content_pic(full_path)
                     # exit(0)
         else:
             print(f'该目录 {full_path}  为空，请输入正确的路径，可参考：{default_directory}')

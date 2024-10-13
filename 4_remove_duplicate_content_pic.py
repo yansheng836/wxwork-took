@@ -1,4 +1,4 @@
-import re
+
 import os
 import hashlib
 
@@ -6,6 +6,11 @@ directory = r'D:\WXWork\1688850205828112\Cache\Image\2023-11'
 
 # 遍历目录下的所有文件
 file_list = os.listdir(directory)
+# 移除目录，目录不能进行hash计算
+for fname in file_list:
+    n_fn = os.path.join(directory, fname)
+    if os.path.isdir(n_fn):
+        file_list.remove(fname)
 dup_list = []
 
 # 用简单的for循环，方便控制
@@ -39,6 +44,11 @@ for i in range(0, len(file_list)):
 
         if file_hash == file_hash2:
             print(f'{filename} 和 {filename2} 相同')
+            # 因为后面会删除文件，需要保证两个文件都不为空，不然查看和处理文件会报错
+            if os.path.exists(full_path) is False:
+                break
+            if os.path.exists(full_path2) is False:
+                continue
             # 比较两个文件的创建时间
             # print(os.path.getctime(full_path))
             # print(os.path.getctime(full_path2))

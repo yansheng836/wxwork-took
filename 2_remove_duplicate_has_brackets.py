@@ -32,7 +32,7 @@ for filename in os.listdir(directory):
             # base_name = match.group(1) + '.jpg'  # 获取不带括号的文件名
             base_name = match.group(1) + suffix  # 获取不带括号的文件名
             base_path = os.path.join(directory, base_name)
-            if os.path.exists(base_path):
+            if os.path.exists(full_path) and os.path.exists(base_path):
                 print(f'找到带括号的 JPG 文件: {filename}')
                 print(f'存在无括号的 JPG 文件: {base_name}')
                 # print(os.path.getsize(full_path))
