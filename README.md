@@ -62,7 +62,7 @@ c0727119-53d8-415b-9f7a-d635c62817ba(1).jpg 重复
 修改2_remove_dupicate_has_brackets.py中的目录`directory`
 
 ```shell
-py 2_remove_dupicate_has_brackets.py
+py 2_remove_duplicate_has_brackets.py
 ```
 
 ### 工具3：删除带png的重复图片jpg
