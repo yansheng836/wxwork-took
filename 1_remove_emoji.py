@@ -36,7 +36,7 @@ for filename in os.listdir(directory):
         if os.path.getsize(full_path) < 15000:
             os.remove(full_path)
             print(f'删除小于15KB的图片：{full_path} 成功')
-        if '.WeDrive' in filename:
+        if '.WeDrive' in filename or '_5_0.0.' in filename:
             os.remove(full_path)
             print(f'删除特殊文件：{full_path} 成功')
         sign = '; charset=UTF-8'
