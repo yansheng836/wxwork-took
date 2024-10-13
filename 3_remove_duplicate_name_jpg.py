@@ -1,5 +1,8 @@
-"""
+#!/usr/bin/python3
+# coding=utf-8
 
+"""
+删除名称重复的图片
 """
 
 import os

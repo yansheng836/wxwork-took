@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+# coding=utf-8
+
+"""
+1.删除小于15k的照片
+2.删除 .WeDrive 文件
+3.重命名带有关键字'; charset=UTF-8'的文件
+"""
 
 import os
 

@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+# coding=utf-8
+
+"""
+删除内容重复的图片
+"""
 
 import os
 import hashlib

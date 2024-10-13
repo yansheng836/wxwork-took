@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+图片工具
+"""
+
 import hashlib
 import os
 import re
@@ -209,9 +213,9 @@ if __name__ == '__main__':
                 if os.path.isdir(full_path):
                     print(f'打印目录中的目录： {full_path}')
                     # 调用逻辑删除文件
-                    # remove_emoji(full_path)
-                    # remove_duplicate_has_brackets(full_path)
-                    # remove_duplicate_name_jpg(full_path)
+                    remove_emoji(full_path)
+                    remove_duplicate_has_brackets(full_path)
+                    remove_duplicate_name_jpg(full_path)
                     remove_duplicate_content_pic(full_path)
                     # exit(0)
         else:

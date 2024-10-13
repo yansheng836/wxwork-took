@@ -1,5 +1,8 @@
-"""
+#!/usr/bin/python3
+# coding=utf-8
 
+"""
+删除带括号的重复图片
 """
 
 import os
