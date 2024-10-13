@@ -110,7 +110,7 @@ def remove_duplicate_name_jpg(directory):
                 print()
 
 
-def remove_duplicate_content_pic(directory):
+def remove_duplicate_content(directory):
     """
     删除内容重复（名称不同）的文件
     :return:
@@ -118,12 +118,25 @@ def remove_duplicate_content_pic(directory):
 
     # 遍历目录下的所有文件
     file_list = os.listdir(directory)
+    # print(file_list)
     # 移除目录，目录不能进行hash计算
+    # i = 0
+    dir_list = []
     for fname in file_list:
+        # i = i+1
         n_fn = os.path.join(directory, fname)
+        # print(f'fname: {fname}')
         if os.path.isdir(n_fn):
-            file_list.remove(fname)
-
+            # print(f'目录 {n_fn}')
+            # print(f'file_list 长度 {len(file_list)}')
+            # file_list.remove(fname)
+            dir_list.append(fname)
+            # print(f'file_list 长度 {len(file_list)}')
+            # print(file_list)
+    # 从 file_list 移除 dir_list 中的元素
+    file_list = [x for x in file_list if x not in dir_list]
+    # print(f'i的值为；{i}')
+    # print(file_list)
     # 用简单的for循环，方便控制
     file_hashs = []
     for i in range(0, len(file_list)):
@@ -163,27 +176,30 @@ def remove_duplicate_content_pic(directory):
                     continue
 
                 # 比较两个文件的创建时间
-                print(os.path.getctime(full_path))
-                print(os.path.getctime(full_path2))
-                if os.path.getctime(full_path) == os.path.getctime(full_path2):
-                    # 如果创建时间相同，再比较修改时间
-                    # 其实不会相等，时间可以精确到小数点后7位，如：1720612917.2837794，1720612917.408793
-                    if os.path.getmtime(full_path) <= os.path.getmtime(full_path2):
-                        # print(f'创建时间比较晚的是：{full_path2}，需删除')
-                        # os.remove(full_path2)
-                        print(f'删除重复图片：{full_path2} 成功')
-                    else:
-                        # print(f'创建时间比较晚的是：{full_path}，需删除')
-                        # os.remove(full_path)
-                        print(f'删除重复图片：{full_path} 成功')
-                elif os.path.getctime(full_path) < os.path.getctime(full_path2):
+                # print(os.path.getctime(full_path))
+                # print(os.path.getctime(full_path2))
+
+                # 取创建时间和修改时间之中的小者当做 “文件的创建时间”
+                # 这里用问号表达式不知道为什么不可以？？？
+                # filetime = (os.path.getctime(full_path) > os.path.getmtime(full_path)) ? (os.path.getctime(full_path)) :(os.path.getmtime(full_path))
+                filetime = os.path.getctime(full_path)
+                if filetime > os.path.getmtime(full_path):
+                    filetime = os.path.getmtime(full_path)
+
+                filetime2 = os.path.getctime(full_path2)
+                if filetime2 > os.path.getmtime(full_path2):
+                    filetime2 = os.path.getmtime(full_path2)
+
+                # print(f'filetime ：{filetime} ')
+                # print(f'filetime2：{filetime2} ')
+                if filetime <= filetime2:
                     # print(f'创建时间比较晚的是：{full_path2}，需删除')
                     # os.remove(full_path2)
-                    print(f'删除重复图片：{full_path2} 成功')
+                    print(f'删除重复文件：{full_path2} 成功')
                 else:
                     # print(f'创建时间比较晚的是：{full_path}，需删除')
                     # os.remove(full_path)
-                    print(f'删除重复图片：{full_path} 成功')
+                    print(f'删除重复文件：{full_path} 成功')
                 print()
             else:
                 # print(f'{filename} 和 {filename2} 不相同')
@@ -209,10 +225,10 @@ if __name__ == '__main__':
                 if os.path.isdir(full_path):
                     print(f'打印目录中的目录： {full_path}')
                     # 调用逻辑删除文件
-                    remove_emoji(full_path)
+                    # remove_emoji(full_path)
                     # # remove_duplicate_has_brackets(full_path)
                     # # remove_duplicate_name_jpg(full_path)
-                    remove_duplicate_content_pic(full_path)
+                    remove_duplicate_content(full_path)
                     # exit(0)
         else:
             print(f'该目录 {full_path}  为空，请输入正确的路径，可参考：{default_directory}')
