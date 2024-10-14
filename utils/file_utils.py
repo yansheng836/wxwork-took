@@ -211,11 +211,11 @@ def remove_duplicate_content_file(directory):
                     # print(f'filetime2：{filetime2} ')
                     if filetime <= filetime2:
                         # print(f'创建时间比较晚的是：{full_path2}，需删除')
-                        # os.remove(full_path2)
+                        os.remove(full_path2)
                         print(f'删除重复文件：{full_path2} 成功')
                     else:
                         # print(f'创建时间比较晚的是：{full_path}，需删除')
-                        # os.remove(full_path)
+                        os.remove(full_path)
                         print(f'删除重复文件：{full_path} 成功')
                 print()
             else:
@@ -242,7 +242,7 @@ if __name__ == '__main__':
                 if os.path.isdir(full_path):
                     print(f'打印目录中的目录： {full_path}')
                     # 调用逻辑删除文件
-                    # remove_emoji(full_path)
+                    remove_emoji(full_path)
                     # # remove_duplicate_has_brackets(full_path)
                     # # remove_duplicate_name_jpg(full_path)
                     remove_duplicate_content_file(full_path)
