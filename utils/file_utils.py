@@ -110,7 +110,7 @@ def remove_duplicate_name_jpg(directory):
                 print()
 
 
-def remove_duplicate_content(directory):
+def remove_duplicate_content_file(directory):
     """
     删除内容重复（名称不同）的文件
     :return:
@@ -175,31 +175,48 @@ def remove_duplicate_content(directory):
                 if os.path.exists(full_path2) is False:
                     continue
 
-                # 比较两个文件的创建时间
-                # print(os.path.getctime(full_path))
-                # print(os.path.getctime(full_path2))
-
-                # 取创建时间和修改时间之中的小者当做 “文件的创建时间”
-                # 这里用问号表达式不知道为什么不可以？？？
-                # filetime = (os.path.getctime(full_path) > os.path.getmtime(full_path)) ? (os.path.getctime(full_path)) :(os.path.getmtime(full_path))
-                filetime = os.path.getctime(full_path)
-                if filetime > os.path.getmtime(full_path):
-                    filetime = os.path.getmtime(full_path)
-
-                filetime2 = os.path.getctime(full_path2)
-                if filetime2 > os.path.getmtime(full_path2):
-                    filetime2 = os.path.getmtime(full_path2)
-
-                # print(f'filetime ：{filetime} ')
-                # print(f'filetime2：{filetime2} ')
-                if filetime <= filetime2:
-                    # print(f'创建时间比较晚的是：{full_path2}，需删除')
-                    # os.remove(full_path2)
-                    print(f'删除重复文件：{full_path2} 成功')
+                # 如果其中一个文件含有特殊字符:'(' ,'- 副本'，直接删除，不再比较时间
+                sign_arr = ['(', '- 副本']
+                contains = any(element in filename for element in sign_arr)
+                contains2 = any(element in filename2 for element in sign_arr)
+                # 存在关键字时
+                if contains or contains2:
+                    if (contains and contains2) or contains:
+                        os.remove(full_path)
+                        print(f'删除重复文件(1含关键字)：{full_path} 成功')
+                    # elif contains:
+                    #     # os.remove(full_path)
+                    #     print(f'删除重复文件：{full_path} 成功')
+                    elif contains2:
+                        os.remove(full_path2)
+                        print(f'删除重复文件(2含关键字2)：{full_path2} 成功')
                 else:
-                    # print(f'创建时间比较晚的是：{full_path}，需删除')
-                    # os.remove(full_path)
-                    print(f'删除重复文件：{full_path} 成功')
+                    # 如果都不包含关键字，走下面的逻辑
+                    # 比较两个文件的创建时间
+                    # print(os.path.getctime(full_path))
+                    # print(os.path.getctime(full_path2))
+
+                    # 取创建时间和修改时间之中的小者当做 “文件的创建时间”
+                    # 这里用问号表达式不知道为什么不可以？？？
+                    # filetime = (os.path.getctime(full_path) > os.path.getmtime(full_path)) ? (os.path.getctime(full_path)) :(os.path.getmtime(full_path))
+                    filetime = os.path.getctime(full_path)
+                    if filetime > os.path.getmtime(full_path):
+                        filetime = os.path.getmtime(full_path)
+
+                    filetime2 = os.path.getctime(full_path2)
+                    if filetime2 > os.path.getmtime(full_path2):
+                        filetime2 = os.path.getmtime(full_path2)
+
+                    # print(f'filetime ：{filetime} ')
+                    # print(f'filetime2：{filetime2} ')
+                    if filetime <= filetime2:
+                        # print(f'创建时间比较晚的是：{full_path2}，需删除')
+                        # os.remove(full_path2)
+                        print(f'删除重复文件：{full_path2} 成功')
+                    else:
+                        # print(f'创建时间比较晚的是：{full_path}，需删除')
+                        # os.remove(full_path)
+                        print(f'删除重复文件：{full_path} 成功')
                 print()
             else:
                 # print(f'{filename} 和 {filename2} 不相同')
@@ -228,7 +245,7 @@ if __name__ == '__main__':
                     # remove_emoji(full_path)
                     # # remove_duplicate_has_brackets(full_path)
                     # # remove_duplicate_name_jpg(full_path)
-                    remove_duplicate_content(full_path)
+                    remove_duplicate_content_file(full_path)
                     # exit(0)
         else:
             print(f'该目录 {full_path}  为空，请输入正确的路径，可参考：{default_directory}')

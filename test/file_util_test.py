@@ -10,4 +10,4 @@ from utils import file_utils
 
 directory = r'D:\WXWork\1688850205828112\Cache\File\2021-09'
 directory = r'D:\WXWork\1688850205828112\Cache\File\2021-11'
-file_utils.remove_duplicate_content(directory)
+file_utils.remove_duplicate_content_file(directory)
