@@ -167,13 +167,13 @@ def remove_duplicate_content_file(directory):
                 file_hash2 = file_hashs[j]
 
             if file_hash == file_hash2:
-                print(f'{filename} 和 {filename2} 相同')
-
                 # 因为后面会删除文件，需要保证两个文件都不为空，不然查看和处理文件会报错
                 if os.path.exists(full_path) is False:
                     break
                 if os.path.exists(full_path2) is False:
                     continue
+
+                print(f'{filename} 和 {filename2} 相同')
 
                 # 如果其中一个文件含有特殊字符:'(' ,'- 副本'，直接删除，不再比较时间
                 sign_arr = ['(', '- 副本']
