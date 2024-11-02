@@ -148,6 +148,22 @@ py 4_remove_duplicate_content_pic.py
 
 参考路径：D:\WXWork\1688850205828112\Cache\File\2023-10
 
+#### bug:PermissionError: [WinError 5] 拒绝访问。--未解决
+
+在处理微信的文件时，发现处理这类文件可能会存在问题，如果文件时只读的情况下，会报错，如下：
+
+```python
+  File "G:/Workspaces/python-project/wxwork-tool/utils/file_utils.py", line 30, in remove_emoji
+    os.remove(full_path)
+PermissionError: [WinError 5] 拒绝访问。: 'F:\\Program Files (x86)\\Tencent\\WeChat\\WeChat Files\\wxid_pj5d1j5jff0021\\FileStorage\\File\\2021-11\\~$202111160938006129713.xlsx'
+```
+
+网上找了下解决方案，但是好像不生效（命名窗口直接执行命令，是可以去掉只读属性的，但是用python去执行不生效），待续。
+
+```python
+os.system(f"attrib -r +s {full_path}")
+```
+
 #### 使用工具示例
 
 ```shell

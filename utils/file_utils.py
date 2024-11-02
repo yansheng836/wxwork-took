@@ -27,6 +27,9 @@ def remove_emoji(directory):
         else:
             # 11.docx 编辑中的文件 ~$11.docx
             if '~$' in filename:
+                print(f'文件：{full_path} ')
+                # 2024年11月2日 这里需要注意，这类文件可能是只读的，不特殊处理会报错：PermissionError: [WinError 5] 拒绝访问。
+                print(os.system(f"attrib -r +s {full_path}"))
                 os.remove(full_path)
                 print(f'删除特殊文件：{full_path} 成功')
             # sign = '; charset=UTF-8'
@@ -182,6 +185,7 @@ def remove_duplicate_content_file(directory):
                 # 存在关键字时
                 if contains or contains2:
                     if (contains and contains2) or contains:
+                        print(os.system(f"attrib -r +s {full_path}"))
                         os.remove(full_path)
                         print(f'删除重复文件(1含关键字)：{full_path} 成功')
                     # elif contains:
@@ -230,6 +234,8 @@ if __name__ == '__main__':
     # directory = r'D:\WXWork\1688850205828112\Cache\Image\2024-02'
     default_directory = r'D:\WXWork\1688850205828112\Cache\File'
     parent_directory = r'D:\WXWork\1688850205828112\Cache\File'
+    parent_directory = r'D:\WXWork\1688850205828112\Cache\Video'
+    parent_directory = r'F:\Program Files (x86)\Tencent\WeChat\WeChat Files\wxid_pj5d1j5jff0021\FileStorage\File'
 
     if os.path.isdir(parent_directory):
         # print(f'存在目录：{full_path}')
